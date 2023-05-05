@@ -42,15 +42,19 @@
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
+
+            <br />
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" style="width:150px" />
+                <a asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    
 </div>
 
 @section Scripts {

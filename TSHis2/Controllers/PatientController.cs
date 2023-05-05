@@ -19,23 +19,28 @@ namespace TSHis2.Controllers
         }
 
         // GET: Patient
-        public async Task<IActionResult> Index()
+        public IActionResult Index(string SearchByName)
         {
-              return _context.Patients != null ? 
-                          View(await _context.Patients.ToListAsync()) :
-                          Problem("Entity set 'HisContext.Patients'  is null.");
+            //return _context.Patients != null ? 
+            //            View(_context.Patients.ToList()) :
+            //            Problem("Entity set 'HisContext.Patients'  is null.");
+            var patientList = _context.Patients.ToList();
+            if (!string.IsNullOrEmpty(SearchByName))
+            {
+                patientList = patientList.Where(p => p.PatientName.ToLower().Contains(SearchByName.ToLower())).ToList();
+            }
+            return View(patientList);
         }
 
         // GET: Patient/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null || _context.Patients == null)
             {
                 return NotFound();
             }
 
-            var patient = await _context.Patients
-                .FirstOrDefaultAsync(m => m.PatientId == id);
+            var patient = _context.Patients.FirstOrDefault(m => m.PatientId == id);
             if (patient == null)
             {
                 return NotFound();
@@ -55,26 +60,26 @@ namespace TSHis2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PatientId,NationalId,Umn,PatientName,PatientAge,PatientAddress,PhoneNumber")] Patient patient)
+        public IActionResult Create([Bind("PatientId,NationalId,Umn,PatientName,PatientAge,PatientAddress,PhoneNumber")] Patient patient)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(patient);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             return View(patient);
         }
 
         // GET: Patient/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null || _context.Patients == null)
             {
                 return NotFound();
             }
 
-            var patient = await _context.Patients.FindAsync(id);
+            var patient = _context.Patients.Find(id);
             if (patient == null)
             {
                 return NotFound();
@@ -87,7 +92,7 @@ namespace TSHis2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PatientId,NationalId,Umn,PatientName,PatientAge,PatientAddress,PhoneNumber")] Patient patient)
+        public IActionResult Edit(int id, [Bind("PatientId,NationalId,Umn,PatientName,PatientAge,PatientAddress,PhoneNumber")] Patient patient)
         {
             if (id != patient.PatientId)
             {
@@ -99,7 +104,7 @@ namespace TSHis2.Controllers
                 try
                 {
                     _context.Update(patient);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -118,15 +123,14 @@ namespace TSHis2.Controllers
         }
 
         // GET: Patient/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null || _context.Patients == null)
             {
                 return NotFound();
             }
 
-            var patient = await _context.Patients
-                .FirstOrDefaultAsync(m => m.PatientId == id);
+            var patient = _context.Patients.FirstOrDefault(m => m.PatientId == id);
             if (patient == null)
             {
                 return NotFound();
@@ -138,19 +142,19 @@ namespace TSHis2.Controllers
         // POST: Patient/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             if (_context.Patients == null)
             {
                 return Problem("Entity set 'HisContext.Patients'  is null.");
             }
-            var patient = await _context.Patients.FindAsync(id);
+            var patient = _context.Patients.Find(id);
             if (patient != null)
             {
                 _context.Patients.Remove(patient);
             }
             
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 

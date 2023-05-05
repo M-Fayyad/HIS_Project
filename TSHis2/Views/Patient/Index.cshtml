@@ -4,11 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>All Patients</h1>
+<h2 >All Patients</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@*search *@
+@using (Html.BeginForm())
+{
+    <div class="input-group">
+        @Html.TextBox("SearchByName",null,new{ @class="form-control",@placeholder="Search By patient Name ...."})
+        <input type="submit" value="Search" class="btn btn-outline-success">
+        <a asp-controller="Patient" asp-action="Create" class="btn btn-outline-primary">
+           Add New Patient
+        </a>
+    </div>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -55,9 +64,8 @@
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PatientId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PatientId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PatientId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.PatientId" class="btn btn-sm btn-success">Edit</a> |
+                    <a asp-controller="visits" asp-action="Details" asp-route-id="@item.PatientId"class="btn btn-sm btn-primary">visits</a>
             </td>
         </tr>
 }
