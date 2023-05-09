@@ -24,6 +24,7 @@ namespace TSHis2.Controllers
             //return _context.Patients != null ? 
             //            View(_context.Patients.ToList()) :
             //            Problem("Entity set 'HisContext.Patients'  is null.");
+            
             var patientList = _context.Patients.ToList();
             if (!string.IsNullOrEmpty(SearchByName))
             {
@@ -33,21 +34,21 @@ namespace TSHis2.Controllers
         }
 
         // GET: Patient/Details/5
-        public IActionResult Details(int? id)
-        {
-            if (id == null || _context.Patients == null)
-            {
-                return NotFound();
-            }
+        //public IActionResult Details(int? id)
+        //{
+        //    if (id == null || _context.Patients == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var patient = _context.Patients.FirstOrDefault(m => m.PatientId == id);
-            if (patient == null)
-            {
-                return NotFound();
-            }
+        //    var patient = _context.Patients.FirstOrDefault(m => m.PatientId == id);
+        //    if (patient == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(patient);
-        }
+        //    return View(patient);
+        //}
 
         // GET: Patient/Create
         public IActionResult Create()
@@ -153,7 +154,7 @@ namespace TSHis2.Controllers
             {
                 _context.Patients.Remove(patient);
             }
-            
+
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }

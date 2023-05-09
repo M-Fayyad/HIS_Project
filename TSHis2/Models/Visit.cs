@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TSHis2.Models;
 
@@ -9,6 +10,7 @@ public partial class Visit
 
     public int PatientId { get; set; }
 
+    [Display(Name = "medical number")]
     public string Umn { get; set; } = null!;
 
     public int? TicketNumber { get; set; }
