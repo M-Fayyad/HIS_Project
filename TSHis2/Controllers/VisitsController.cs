@@ -18,15 +18,15 @@ namespace TSHis2.Controllers
             _context = context;
         }
 
-        //// GET: Visits
-        //public IActionResult Index(int? Id)
-        //{
-        //    //var hisContext = _context.Visits.Include(v => v.Patient);
-        //    //return View(hisContext.ToList());
+        // GET: Visits
+        public IActionResult Index(int? Id)
+        {
+            var hisContext = _context.Visits.Include(v => v.Patient);
+            return View(hisContext.ToList());
 
-        //    var patientVisits = _context.Visits.Include(v => v.Patient).Where(i => i.PatientId==Id).ToList();
-        //    return View(patientVisits);
-        //}
+            //var patientVisits = _context.Visits.Include(v => v.Patient).Where(i => i.PatientId == Id).ToList();
+            //return View(patientVisits);
+        }
 
         //// GET: Visits/Details/5
         //public IActionResult Details(int? id)
@@ -51,8 +51,7 @@ namespace TSHis2.Controllers
         public IActionResult Create(int? id, string umn)
         {
             //ViewData["PatientId"] = new SelectList(_context.Patients, "PatientId", "PatientId");
-            DateTime dateNow= DateTime.Now;
-            ViewBag.date = dateNow;
+
             //this viewBag for  fetch data from the patient view to visit controller to visit view
             ViewBag.PatientId = id;
             ViewBag.umn = umn;
