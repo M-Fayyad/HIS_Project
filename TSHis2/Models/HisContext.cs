@@ -221,9 +221,8 @@ public partial class HisContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("current_location");
             entity.Property(e => e.EntryDate)
-                .HasColumnType("date")
+                .HasColumnType("datetime2")
                 .HasColumnName("entry_date");
-            entity.Property(e => e.EntryHour).HasColumnName("entry_hour");
             entity.Property(e => e.EntryPlace)
                 .HasMaxLength(50)
                 .HasColumnName("entry_place");

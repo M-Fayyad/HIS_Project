@@ -19,9 +19,7 @@ public partial class Visit
 
     public string? PaymentType { get; set; }
 
-    public TimeSpan? EntryHour { get; set; }
-
-    public DateTime? EntryDate { get; set; }
+    public DateTime EntryDate { get; set; } = DateTime.Now;
 
     public string? CurrentLocation { get; set; }
 
