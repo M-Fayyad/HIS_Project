@@ -63,14 +63,14 @@ namespace TSHis2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("VisitId,PatientId,Umn,TicketNumber,EntryPlace,PaymentType,EntryHour,EntryDate,CurrentLocation")] Visit visit)
+        public IActionResult Create(Visit visit)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _context.Add(visit);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
-            }
+            //}
             //ViewData["PatientId"] = new SelectList(_context.Patients, "PatientId", "PatientId", visit.PatientId);
             return View(visit);
         }

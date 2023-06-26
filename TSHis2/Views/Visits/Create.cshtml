@@ -1,0 +1,53 @@
+﻿@model TSHis2.Models.Visit
+@{
+    ViewData["Title"] = "Create";
+}
+<h1>Create New Visit</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PatientId" class="control-label"></label>
+                <input  asp-for="PatientId" class="form-control" value="@ViewBag.PatientId"/>
+                @*<select asp-for="PatientId" disabled class ="form-control" asp-items="@ViewBag.PatientId"></select>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="Umn" class="control-label"></label>
+                <input  asp-for="Umn" class="form-control" value="@ViewBag.umn"  />
+                <span asp-validation-for="Umn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketNumber" class="control-label"></label>
+                <input asp-for="TicketNumber" class="form-control" />
+                <span asp-validation-for="TicketNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntryPlace" class="control-label"></label>
+                <input asp-for="EntryPlace" class="form-control" />
+                <span asp-validation-for="EntryPlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentType" class="control-label"></label>
+                <input asp-for="PaymentType" class="form-control" />
+                <span asp-validation-for="PaymentType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentLocation" class="control-label"></label>
+                <input asp-for="CurrentLocation" class="form-control" />
+                <span asp-validation-for="CurrentLocation" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" style="width:150px" />
+                <a asp-controller="Patient" asp-action="Index"class="btn btn-secondary" style="width:150px">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
