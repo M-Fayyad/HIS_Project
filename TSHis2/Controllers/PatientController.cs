@@ -30,6 +30,7 @@ namespace TSHis2.Controllers
             {
                 patientList = patientList.Where(p => p.PatientName.ToLower().Contains(SearchByName.ToLower())).ToList();
             }
+            patientList = patientList.OrderByDescending(p => p.PatientId).Take(10).ToList();
             return View(patientList);
         }
 

@@ -9,13 +9,12 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="PatientId" class="control-label"></label>
-                <input  asp-for="PatientId" class="form-control" value="@ViewBag.PatientId"/>
-                @*<select asp-for="PatientId" disabled class ="form-control" asp-items="@ViewBag.PatientId"></select>*@
+                @*<label asp-for="PatientId" class="control-label"></label>*@
+                <input type="hidden" asp-for="PatientId" class="form-control" value="@ViewBag.PatientId" readonly/>
             </div>
             <div class="form-group">
                 <label asp-for="Umn" class="control-label"></label>
-                <input  asp-for="Umn" class="form-control" value="@ViewBag.umn"  />
+                <input  asp-for="Umn" class="form-control" value="@ViewBag.umn" readonly />
                 <span asp-validation-for="Umn" class="text-danger"></span>
             </div>
             <div class="form-group">
