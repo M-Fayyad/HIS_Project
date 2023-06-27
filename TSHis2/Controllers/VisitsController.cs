@@ -19,33 +19,37 @@ namespace TSHis2.Controllers
         }
 
         // GET: Visits
-        public IActionResult Index(int? Id)
+        public IActionResult Index(string SearchByUmn)
         {
-            var hisContext = _context.Visits.Include(v => v.Patient);
-            return View(hisContext.ToList());
+            var visitsList = _context.Visits.Include(v => v.Patient);
+            if (!string.IsNullOrEmpty(SearchByUmn))
+            {
+                visitsList = visitsList.Where(p => p.Umn.ToLower().Contains(SearchByUmn.ToLower())).Include(v => v.Patient);
+            }
+            return View(visitsList.ToList());
 
             //var patientVisits = _context.Visits.Include(v => v.Patient).Where(i => i.PatientId == Id).ToList();
             //return View(patientVisits);
         }
 
-        //// GET: Visits/Details/5
-        //public IActionResult Details(int? id)
-        //{
-        //    if (id == null || _context.Visits == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Visits/Details/5
+        public IActionResult Details(int? id)
+        {
+            if (id == null || _context.Visits == null)
+            {
+                return NotFound();
+            }
 
-        //    var visit = _context.Visits
-        //        .Include(v => v.Patient)
-        //        .FirstOrDefault(m => m.VisitId == id);
-        //    if (visit == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var visit = _context.Visits
+                .Include(v => v.Patient)
+                .FirstOrDefault(m => m.VisitId == id);
+            if (visit == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(visit);
-        //}
+            return View(visit);
+        }
 
         // GET: Visits/Create
         public IActionResult Create(int? id, string umn)
@@ -72,7 +76,7 @@ namespace TSHis2.Controllers
                 return RedirectToAction(nameof(Index));
             //}
             //ViewData["PatientId"] = new SelectList(_context.Patients, "PatientId", "PatientId", visit.PatientId);
-            return View(visit);
+            //return View(visit);
         }
 
         // GET: Visits/Edit/5
