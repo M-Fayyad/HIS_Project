@@ -26,10 +26,10 @@ namespace TSHis2.Controllers
             {
                 visitsList = visitsList.Where(p => p.Umn.ToLower().Contains(SearchByUmn.ToLower())).Include(v => v.Patient);
             }
+
+            //visitsList = visitsList.OrderByDescending(v => v.EntryDate).Take(10);
             return View(visitsList.ToList());
 
-            //var patientVisits = _context.Visits.Include(v => v.Patient).Where(i => i.PatientId == Id).ToList();
-            //return View(patientVisits);
         }
 
         // GET: Visits/Details/5
@@ -73,7 +73,7 @@ namespace TSHis2.Controllers
             //{
                 _context.Add(visit);
                 _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Patient");
             //}
             //ViewData["PatientId"] = new SelectList(_context.Patients, "PatientId", "PatientId", visit.PatientId);
             //return View(visit);

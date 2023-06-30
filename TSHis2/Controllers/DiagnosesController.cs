@@ -46,10 +46,12 @@ namespace TSHis2.Controllers
         }
 
         // GET: Diagnoses/Create
-        public IActionResult Create()
-        {
-            ViewData["EmpId"] = new SelectList(_context.Employees, "EmpId", "EmpId");
-            ViewData["VisitId"] = new SelectList(_context.Visits, "VisitId", "VisitId");
+        public IActionResult Create(int? id)
+        { 
+            ViewBag.visitId = id;
+
+            //ViewData["EmpId"] = new SelectList(_context.Employees, "EmpId", "EmpId");
+            //ViewData["VisitId"] = new SelectList(_context.Visits, "VisitId", "VisitId");
             return View();
         }
 
@@ -58,17 +60,17 @@ namespace TSHis2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DiagnosisId,VisitId,EmpId,Examiation,Diagnosis1,DoctorDecision,DiagnosisDate,DiagnosisHour,DiagnosisLocation")] Diagnosis diagnosis)
+        public async Task<IActionResult> Create(Diagnosis diagnosis)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _context.Add(diagnosis);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["EmpId"] = new SelectList(_context.Employees, "EmpId", "EmpId", diagnosis.EmpId);
-            ViewData["VisitId"] = new SelectList(_context.Visits, "VisitId", "VisitId", diagnosis.VisitId);
-            return View(diagnosis);
+            //}
+            //ViewData["EmpId"] = new SelectList(_context.Employees, "EmpId", "EmpId", diagnosis.EmpId);
+            //ViewData["VisitId"] = new SelectList(_context.Visits, "VisitId", "VisitId", diagnosis.VisitId);
+            //return View(diagnosis);
         }
 
         // GET: Diagnoses/Edit/5

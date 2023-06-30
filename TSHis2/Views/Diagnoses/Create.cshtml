@@ -14,12 +14,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="VisitId" class="control-label"></label>
-                <select asp-for="VisitId" class ="form-control" asp-items="ViewBag.VisitId"></select>
+                <input asp-for="VisitId" class="form-control" value="@ViewBag.visitId" readonly/>
+                @*<select asp-for="VisitId" class ="form-control" asp-items="ViewBag.VisitId"></select>*@
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="EmpId" class="control-label"></label>
                 <select asp-for="EmpId" class ="form-control" asp-items="ViewBag.EmpId"></select>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Examiation" class="control-label"></label>
                 <input asp-for="Examiation" class="form-control" />
@@ -51,14 +52,11 @@
                 <span asp-validation-for="DiagnosisLocation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" style="width:150px" />
+                <a asp-controller="Visits" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
