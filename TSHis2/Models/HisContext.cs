@@ -48,24 +48,24 @@ public partial class HisContext : DbContext
                 .HasMaxLength(4000)
                 .HasColumnName("diagnosis");
             entity.Property(e => e.DiagnosisDate)
-                .HasColumnType("date")
+                .HasColumnType("datetime2")
                 .HasColumnName("diagnosis_date");
-            entity.Property(e => e.DiagnosisHour).HasColumnName("diagnosis_hour");
             entity.Property(e => e.DiagnosisLocation)
                 .HasMaxLength(100)
                 .HasColumnName("diagnosis_location");
             entity.Property(e => e.DoctorDecision)
                 .HasMaxLength(300)
                 .HasColumnName("doctor_decision");
-            entity.Property(e => e.EmpId).HasColumnName("emp_id");
             entity.Property(e => e.Examiation)
                 .HasMaxLength(4000)
                 .HasColumnName("examiation");
+            entity.Property(e => e.Tests)
+                .HasMaxLength(500)
+                .HasColumnName("tests");
+            entity.Property(e => e.Drugs)
+                .HasMaxLength(500)
+                .HasColumnName("drugs");
             entity.Property(e => e.VisitId).HasColumnName("visit_id");
-
-            entity.HasOne(d => d.Emp).WithMany(p => p.Diagnoses)
-                .HasForeignKey(d => d.EmpId)
-                .HasConstraintName("FK_diagnosis_employees");
 
             entity.HasOne(d => d.Visit).WithMany(p => p.Diagnoses)
                 .HasForeignKey(d => d.VisitId)
