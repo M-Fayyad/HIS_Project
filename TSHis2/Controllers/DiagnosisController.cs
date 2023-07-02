@@ -19,23 +19,23 @@ namespace TSHis2.Controllers
         }
 
         // GET: Diagnosis
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var hisContext = _context.Diagnoses.Include(d => d.Visit);
-            return View(await hisContext.ToListAsync());
+            return View(hisContext.ToList());
         }
 
         // GET: Diagnosis/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null || _context.Diagnoses == null)
             {
                 return NotFound();
             }
 
-            var diagnosis = await _context.Diagnoses
+            var diagnosis = _context.Diagnoses
                 .Include(d => d.Visit)
-                .FirstOrDefaultAsync(m => m.DiagnosisId == id);
+                .FirstOrDefault(m => m.DiagnosisId == id);
             if (diagnosis == null)
             {
                 return NotFound();
@@ -45,9 +45,10 @@ namespace TSHis2.Controllers
         }
 
         // GET: Diagnosis/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
-            ViewData["VisitId"] = new SelectList(_context.Visits, "VisitId", "VisitId");
+            ViewBag.VisitId = id;
+            //ViewData["VisitId"] = new SelectList(_context.Visits, "VisitId", "VisitId");
             return View();
         }
 
@@ -56,27 +57,27 @@ namespace TSHis2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DiagnosisId,VisitId,Examiation,Drugs,Tests,Diagnosis1,DoctorDecision,DiagnosisDate,DiagnosisLocation")] Diagnosis diagnosis)
+        public IActionResult Create(Diagnosis diagnosis)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(diagnosis);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["VisitId"] = new SelectList(_context.Visits, "VisitId", "VisitId", diagnosis.VisitId);
-            return View(diagnosis);
+            //if (ModelState.IsValid)
+            //{
+            _context.Add(diagnosis);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+            //}
+            //ViewData["VisitId"] = new SelectList(_context.Visits, "VisitId", "VisitId", diagnosis.VisitId);
+            //return View(diagnosis);
         }
 
         // GET: Diagnosis/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null || _context.Diagnoses == null)
             {
                 return NotFound();
             }
 
-            var diagnosis = await _context.Diagnoses.FindAsync(id);
+            var diagnosis = _context.Diagnoses.Find(id);
             if (diagnosis == null)
             {
                 return NotFound();
@@ -90,7 +91,7 @@ namespace TSHis2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DiagnosisId,VisitId,Examiation,Drugs,Tests,Diagnosis1,DoctorDecision,DiagnosisDate,DiagnosisLocation")] Diagnosis diagnosis)
+        public IActionResult Edit(int id, [Bind("DiagnosisId,VisitId,Examiation,Drugs,Tests,Diagnosis1,DoctorDecision,DiagnosisDate,DiagnosisLocation")] Diagnosis diagnosis)
         {
             if (id != diagnosis.DiagnosisId)
             {
@@ -102,7 +103,7 @@ namespace TSHis2.Controllers
                 try
                 {
                     _context.Update(diagnosis);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -121,47 +122,47 @@ namespace TSHis2.Controllers
             return View(diagnosis);
         }
 
-        // GET: Diagnosis/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Diagnoses == null)
-            {
-                return NotFound();
-            }
+        //// GET: Diagnosis/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null || _context.Diagnoses == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var diagnosis = await _context.Diagnoses
-                .Include(d => d.Visit)
-                .FirstOrDefaultAsync(m => m.DiagnosisId == id);
-            if (diagnosis == null)
-            {
-                return NotFound();
-            }
+        //    var diagnosis = await _context.Diagnoses
+        //        .Include(d => d.Visit)
+        //        .FirstOrDefaultAsync(m => m.DiagnosisId == id);
+        //    if (diagnosis == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(diagnosis);
-        }
+        //    return View(diagnosis);
+        //}
 
-        // POST: Diagnosis/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Diagnoses == null)
-            {
-                return Problem("Entity set 'HisContext.Diagnoses'  is null.");
-            }
-            var diagnosis = await _context.Diagnoses.FindAsync(id);
-            if (diagnosis != null)
-            {
-                _context.Diagnoses.Remove(diagnosis);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //// POST: Diagnosis/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    if (_context.Diagnoses == null)
+        //    {
+        //        return Problem("Entity set 'HisContext.Diagnoses'  is null.");
+        //    }
+        //    var diagnosis = await _context.Diagnoses.FindAsync(id);
+        //    if (diagnosis != null)
+        //    {
+        //        _context.Diagnoses.Remove(diagnosis);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool DiagnosisExists(int id)
         {
-          return (_context.Diagnoses?.Any(e => e.DiagnosisId == id)).GetValueOrDefault();
+            return (_context.Diagnoses?.Any(e => e.DiagnosisId == id)).GetValueOrDefault();
         }
     }
 }
