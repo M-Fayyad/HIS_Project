@@ -77,8 +77,8 @@
                 </td>
                 <td>
                         <a asp-controller="Visits" asp-action="Create" asp-route-id="@item.PatientId" asp-route-umn="@item.Umn" class="btn btn-sm btn-primary">New visit</a> |
-                        <a asp-action="Edit" asp-route-id="@item.PatientId" class="btn btn-sm btn-success">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="@item.PatientId" class="btn btn-sm btn-danger">Delete</a> 
+                        <a asp-action="Edit" asp-route-id="@item.PatientId" class="btn btn-sm btn-success">Edit</a> @*|
+                        <a asp-action="Delete" asp-route-id="@item.PatientId" class="btn btn-sm btn-danger">Delete</a> *@
                 </td>
             </tr>
             }

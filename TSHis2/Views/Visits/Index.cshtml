@@ -4,74 +4,99 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Patient visits</h1>
+
 
 @*search *@
-@using (Html.BeginForm())
-{
-        <div class="input-group">
-        @Html.TextBox("SearchByUmn",null,new{ @class="form-control",@placeholder="Search By patient Medical Number ...."})
-            <input type="submit" value="Search" class="btn btn-outline-success">
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <h1>Patient visits</h1>
+    </div>
+    <div class="row pt-4">
+        <div class="col-6 text-center" >
+            @using (Html.BeginForm())
+            {
+            <div class="input-group">
+                    @Html.TextBox("SearchByUmn",null,new{ @class="form-control",@placeholder="Search By patient Medical Number ...."})
+                <input type="submit" value="Search" class="btn btn-outline-success">
+            </div>
+            }
         </div>
-}
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model=>model.Patient.PatientName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Umn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TicketNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EntryPlace)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.PaymentType)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.EntryDate)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.CurrentLocation)
-            </th>*@
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Patient.PatientName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Umn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EntryPlace)
-            </td>
-            @*<td>
+        <div class="col-6 text-end" >
+           
+        </div>
+    </div>
+
+    <br /> 
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                        @Html.DisplayNameFor(model=>model.Patient.PatientName)
+                </th>
+                <th>
+                        @Html.DisplayNameFor(model => model.Umn)
+                </th>
+                <th>
+                        @Html.DisplayNameFor(model => model.TicketNumber)
+                </th>
+                <th>
+                        @Html.DisplayNameFor(model => model.EntryPlace)
+                </th>
+                    @*<th>
+                    @Html.DisplayNameFor(model => model.PaymentType)
+                </th>*@
+                <th>
+                        @Html.DisplayNameFor(model => model.EntryDate)
+                </th>
+                    @*<th>
+                    @Html.DisplayNameFor(model => model.CurrentLocation)
+                </th>*@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Patient.PatientName)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.Umn)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.TicketNumber)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.EntryPlace)
+                </td>
+                    @*<td>
                 @Html.DisplayFor(modelItem => item.PaymentType)
             </td>*@
-            <td>
-                    @Html.DisplayFor(modelItem => item.EntryDate)
-            </td>
-            @*<td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.EntryDate)
+                </td>
+                    @*<td>
                 @Html.DisplayFor(modelItem => item.CurrentLocation)
             </td>*@
-            <td>
-                    <a asp-controller="Diagnoses" asp-action="Create" asp-route-id="@item.VisitId" class="btn btn-sm btn-primary">New Diagnose</a>
-                    <a asp-controller="Diagnoses" asp-action="Edit" asp-route-id="@item.VisitId" class="btn btn-sm btn-success">Edit</a> |
-                    @*<a asp-action="Details" asp-route-id="@item.VisitId" class="btn btn-sm btn-outline-secondary">Details</a> |*@
-                    @*<a asp-action="Delete" asp-route-id="@item.VisitId" class="btn btn-sm btn-danger">Delete</a>*@
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                <td>
+                        <a asp-controller="Diagnosis" asp-action="Create" asp-route-id="@item.VisitId" class="btn btn-sm btn-primary">New Diagnose</a> | 
+                        <a asp-controller="Diagnosis" asp-action="Edit" asp-route-id="@item.VisitId" class="btn btn-sm btn-success">Edit</a> 
+                        @*<a asp-action="Details" asp-route-id="@item.VisitId" class="btn btn-sm btn-outline-secondary">Details</a> |*@
+                        @*<a asp-action="Delete" asp-route-id="@item.VisitId" class="btn btn-sm btn-danger">Delete</a>*@
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+
+

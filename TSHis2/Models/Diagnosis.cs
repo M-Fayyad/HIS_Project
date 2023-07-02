@@ -16,6 +16,7 @@ public partial class Diagnosis
 
     public string? Tests { get; set; }
 
+    [Display(Name = "Diagnosis")]
     public string? Diagnosis1 { get; set; }
 
     public string? DoctorDecision { get; set; }
