@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using TSHis2.Models;
 
 namespace TSHis2
@@ -13,6 +14,14 @@ namespace TSHis2
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<HisContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("HisDB")));
+
+            builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+            {
+                ProgressBar= true,
+                PositionClass = ToastPositions.TopRight,
+                PreventDuplicates= true,
+                CloseButton = true
+            });
 
             var app = builder.Build();
 

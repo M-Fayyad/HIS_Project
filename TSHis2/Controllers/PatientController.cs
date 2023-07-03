@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using TSHis2.Models;
 
 namespace TSHis2.Controllers
@@ -12,19 +13,16 @@ namespace TSHis2.Controllers
     public class PatientController : Controller
     {
         private readonly HisContext _context;
-
-        public PatientController(HisContext context)
+        private readonly IToastNotification _toastNotification;
+        public PatientController(HisContext context, IToastNotification toastNotification)
         {
             _context = context;
+            _toastNotification = toastNotification;
         }
 
         // GET: Patient
         public IActionResult Index(string SearchByName)
         {
-            //return _context.Patients != null ? 
-            //            View(_context.Patients.ToList()) :
-            //            Problem("Entity set 'HisContext.Patients'  is null.");
-            
             var patientList = _context.Patients.ToList();
             if (!string.IsNullOrEmpty(SearchByName))
             {
@@ -68,6 +66,7 @@ namespace TSHis2.Controllers
             {
                 _context.Add(patient);
                 _context.SaveChanges();
+                _toastNotification.AddSuccessToastMessage("Patient data added successfully");
                 return RedirectToAction(nameof(Index));
             }
             return View(patient);
@@ -119,6 +118,7 @@ namespace TSHis2.Controllers
                         throw;
                     }
                 }
+                _toastNotification.AddSuccessToastMessage("Patient data updated successfully");
                 return RedirectToAction(nameof(Index));
             }
             return View(patient);
