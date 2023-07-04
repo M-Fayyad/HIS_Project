@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using TSHis2.Models;
 
 namespace TSHis2.Controllers
@@ -12,10 +13,12 @@ namespace TSHis2.Controllers
     public class DiagnosisController : Controller
     {
         private readonly HisContext _context;
+        private readonly IToastNotification _toastNotification;
 
-        public DiagnosisController(HisContext context)
+        public DiagnosisController(HisContext context, IToastNotification toastNotification)
         {
             _context = context;
+            _toastNotification = toastNotification;
         }
 
         // GET: Diagnosis
@@ -63,7 +66,8 @@ namespace TSHis2.Controllers
             //{
             _context.Add(diagnosis);
             _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            _toastNotification.AddSuccessToastMessage("Diagnosis added successfully");
+            return RedirectToAction("Index", "Visits");
             //}
             //ViewData["VisitId"] = new SelectList(_context.Visits, "VisitId", "VisitId", diagnosis.VisitId);
             //return View(diagnosis);
@@ -116,7 +120,8 @@ namespace TSHis2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                _toastNotification.AddSuccessToastMessage("Diagnosis updated successfully");
+                return RedirectToAction("Index","Visits");
             }
             //ViewData["VisitId"] = new SelectList(_context.Visits, "VisitId", "VisitId", diagnosis.VisitId);
             return View(diagnosis);
