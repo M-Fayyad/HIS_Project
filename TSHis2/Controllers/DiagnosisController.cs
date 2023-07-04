@@ -22,9 +22,10 @@ namespace TSHis2.Controllers
         }
 
         // GET: Diagnosis
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
-            var hisContext = _context.Diagnoses.Include(d => d.Visit);
+            IEnumerable<Diagnosis> hisContext = _context.Diagnoses.Include(d => d.Visit);
+            hisContext = hisContext.Where(d => d.VisitId == id);
             return View(hisContext.ToList());
         }
 

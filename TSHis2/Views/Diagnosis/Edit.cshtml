@@ -8,7 +8,7 @@
 
 <br />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="DiagnosisId" />
@@ -55,10 +55,14 @@
             <br />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-success" style="width:150px" />
-                <a asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+                <a asp-action="Index" asp-route-id="@Model.VisitId" class="btn btn-secondary" style="width:150px">Back to List</a>
             </div>
         </form>
     </div>
+    <div class="col-md-6">
+        <img src="~/images/2.png" alt="Docter" class="w-75">
+    </div>
+
 </div>
 
 
