@@ -23,13 +23,13 @@ namespace TSHis2.Controllers
         // GET: Visits
         public IActionResult Index(string SearchByUmn)
         {
-            var visitsList = _context.Visits.Include(v => v.Patient);
+            IQueryable<Visit> visitsList = _context.Visits.Include(v => v.Patient);
             if (!string.IsNullOrEmpty(SearchByUmn))
             {
                 visitsList = visitsList.Where(p => p.Umn.ToLower().Contains(SearchByUmn.ToLower())).Include(v => v.Patient);
             }
 
-            //visitsList = visitsList.OrderByDescending(v => v.EntryDate).Take(10);
+            visitsList = visitsList.OrderByDescending(v => v.EntryDate).Take(10);
             return View(visitsList.ToList());
 
         }

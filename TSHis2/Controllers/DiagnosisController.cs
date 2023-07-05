@@ -25,7 +25,7 @@ namespace TSHis2.Controllers
         public IActionResult Index(int id)
         {
             IEnumerable<Diagnosis> hisContext = _context.Diagnoses.Include(d => d.Visit);
-            hisContext = hisContext.Where(d => d.VisitId == id);
+            hisContext = hisContext.Where(d => d.VisitId == id).OrderByDescending(i => i.DiagnosisDate);
             return View(hisContext.ToList());
         }
 
@@ -75,8 +75,10 @@ namespace TSHis2.Controllers
         }
 
         // GET: Diagnosis/Edit/5
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int? id, int visitId)
         {
+            
+
             if (id == null || _context.Diagnoses == null)
             {
                 return NotFound();
@@ -87,6 +89,7 @@ namespace TSHis2.Controllers
             {
                 return NotFound();
             }
+            ViewBag.visitId = visitId;
             //ViewData["VisitId"] = new SelectList(_context.Visits, "VisitId", "VisitId", diagnosis.VisitId);
             return View(diagnosis);
         }
@@ -98,6 +101,7 @@ namespace TSHis2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("DiagnosisId,VisitId,Examiation,Drugs,Tests,Diagnosis1,DoctorDecision,DiagnosisDate,DiagnosisLocation")] Diagnosis diagnosis)
         {
+
             if (id != diagnosis.DiagnosisId)
             {
                 return NotFound();

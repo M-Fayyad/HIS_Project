@@ -35,9 +35,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.DiagnosisLocation)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Visit)
-            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.VisitId)
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -65,11 +65,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DiagnosisLocation)
             </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.VisitId)
+            </td>*@
             <td>
-                @Html.DisplayFor(modelItem => item.Visit.VisitId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DiagnosisId" class="btn  btn-sm btn-primary">Edit</a> |
+                <a asp-action="Edit" asp-route-id="@item.DiagnosisId" asp-route-visitId="@item.VisitId" class="btn  btn-sm btn-primary">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.DiagnosisId" class="btn  btn-sm btn-secondary">Details</a> @*|
                 <a asp-action="Delete" asp-route-id="@item.DiagnosisId">Delete</a>*@
             </td>
